@@ -11,6 +11,7 @@ public class LogisticsStaffCo {
     private List<OrderStatus> orderStatuses = new ArrayList<>();
     private List<String> staffAssignedForDelivery = new ArrayList<>();
     private LocalTime localTime ;
+    private String defaultPin = "admin";
 
 
     public List<String> getStaffAssignedForDelivery() {
@@ -46,4 +47,7 @@ public class LogisticsStaffCo {
     }
 
 
+    public String getPin() {
+        return defaultPin;
+    }
 }

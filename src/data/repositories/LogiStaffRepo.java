@@ -13,6 +13,7 @@ public interface LogiStaffRepo {
     void assignStaffForDelivery();
     List<String> getStaffAssignedForDelivery();
     boolean checkIfAssignedByName(String name);
+    List<String> getAllStaff();
     boolean findStaffByName(String name);
 
 

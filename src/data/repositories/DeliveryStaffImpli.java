@@ -11,7 +11,7 @@ import java.util.Random;
 public class DeliveryStaffImpli implements DeliveryStaffRepo{
     public  LogisticsStaffCo logisticsStaffCo = new LogisticsStaffCo();
     Random random  = new Random();
-DeliveryStaff deliveryStaff = new DeliveryStaff();
+public  DeliveryStaff deliveryStaff = new DeliveryStaff();
     public  DeliveryStaffImpli(){
 //deliveryStaff.validate();
     }
@@ -21,13 +21,17 @@ DeliveryStaff deliveryStaff = new DeliveryStaff();
     public void finishDelivery() {
 //        deliveryStaff.validate();
         int finishDelivery = random.nextInt(0, deliveryStaff.getToDeliver().size());
-        Orders orders = deliveryStaff.getToDeliver().get(finishDelivery);
-        OrderStatus orderStatus = new OrderStatus();
-        orderStatus.setOrderName(orders);
-        orderStatus.setStaffName(deliveryStaff.getStaffName());
-        orderStatus.setExpectedTime(logisticsStaffCo.getLocalTime());
-        deliveryStaff.isConfirm(orderStatus);
-        deliveryStaff.getToDeliver().remove(orders);
+        if (!deliveryStaff.getToDeliver().isEmpty()){
+            Orders orders = deliveryStaff.getToDeliver().get(finishDelivery);
+            OrderStatus orderStatus = new OrderStatus();
+            orderStatus.setOrderName(orders);
+            orderStatus.setExpectedTime(logisticsStaffCo.getLocalTime());
+            orderStatus.setStaffName(deliveryStaff.getStaffName());
+
+            deliveryStaff.isConfirm(orderStatus);
+            deliveryStaff.getToDeliver().remove(orders);
+        } else throw new RuntimeException("There are not list of order to deliver ");
+
     }
 
     @Override
@@ -50,12 +54,12 @@ DeliveryStaff deliveryStaff = new DeliveryStaff();
 
     @Override
     public void logIn() {
-        deliveryStaff.setLogIn(true);
+        deliveryStaff.setLogInAsStaff(true);
     }
 
     @Override
     public void logOut() {
-        deliveryStaff.setLogIn(false);
+        deliveryStaff.setLogInAsStaff(false);
     }
 
     @Override
@@ -88,6 +92,7 @@ DeliveryStaff deliveryStaff = new DeliveryStaff();
     public void logisticsToDeliver(Orders orders, String s) {
         deliveryStaff.logisticsToDeliver(orders,  s);
     }
+
 
 
 }

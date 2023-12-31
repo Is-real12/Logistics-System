@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 public class LogiStaffImpli implements LogiStaffRepo {
-  private LogisticsStaffCo logisticsStaffCo = new LogisticsStaffCo();
+  public LogisticsStaffCo logisticsStaffCo = new LogisticsStaffCo();
   private DeliveryStaffImpli randStaff;
   Random random = new Random();
     private DeliveryStaff deliveryStaff= new DeliveryStaff();
@@ -69,16 +69,21 @@ public class LogiStaffImpli implements LogiStaffRepo {
         List<String> staff = logisticsStaffCo.getDeliveryStaff();
         int OrderNum = random.nextInt(0, acceptedOrders.size());
         int staffNum = random.nextInt(0, staff.size());
-        logisticsStaffCo.setStaffAssignedForDelivery(staff.get(staffNum));
-        DeliveryStaff deliveryStaff1 = new DeliveryStaff();
-        DeliveryStaffImpli deliveryStaffImpli = new DeliveryStaffImpli();
-        randStaff = deliveryStaffImpli;
-        deliveryStaff1.setStaffName(staff.get(staffNum));
-        deliveryStaffImpli.logisticsToDeliver(acceptedOrders.get(OrderNum),  staff.get(staffNum));
-        deliveryStaff1.setExpectedTime(logisticsStaffCo.getLocalTime());
-        logisticsStaffCo.getAcceptedOrder().remove(logisticsStaffCo.getAcceptedOrder().get(OrderNum));
-    }
 
+        if (!acceptedOrders.isEmpty() && !staff.isEmpty()) {
+            logisticsStaffCo.setStaffAssignedForDelivery(staff.get(staffNum));
+            DeliveryStaff deliveryStaff1 = new DeliveryStaff();
+            DeliveryStaffImpli deliveryStaffImpli = new DeliveryStaffImpli();
+            randStaff = deliveryStaffImpli;
+            deliveryStaff1.setStaffName(staff.get(staffNum));
+            deliveryStaffImpli.logisticsToDeliver(acceptedOrders.get(OrderNum), staff.get(staffNum));
+            deliveryStaff1.setExpectedTime(logisticsStaffCo.getLocalTime());
+            logisticsStaffCo.getAcceptedOrder().remove(logisticsStaffCo.getAcceptedOrder().get(OrderNum));
+
+        } else {
+            throw new RuntimeException("There are no available staffs or order");
+        }
+    }
     public List<Orders> allAcceptedOrder(){
       return logisticsStaffCo.getAcceptedOrder();
     }
@@ -100,9 +105,13 @@ public class LogiStaffImpli implements LogiStaffRepo {
         for (String logis: logisticsStaffCo.getDeliveryStaff()) {
             if (logis.equals(deliveryStaff.getStaffName())) return true;
         }
-         return false;
+         throw new RuntimeException("Staff not found");
         }
 
+        @Override
+    public List<String> getAllStaff(){
+     return logisticsStaffCo.getDeliveryStaff();
+        }
 
 
 

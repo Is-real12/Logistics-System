@@ -10,7 +10,9 @@ public class DeliveryStaff {
     private Orders ordersName;
     private final List<Orders> toDeliver = new ArrayList<>();
     private boolean isConfirm;
-    private boolean isLogIn;
+    private boolean isLogInAsStaff;
+
+    private String defaultPin = "admin";
     private List<OrderStatus> orderStatuses = new ArrayList<OrderStatus>();
 //    OrderStatus status = new OrderStatus(staffName, ordersName);
 
@@ -19,17 +21,19 @@ public class DeliveryStaff {
 
 
 
-
+    public String getPin() {
+       return defaultPin;
+    }
 
     private LocalTime expectedTime;
 
 
-    public boolean isLogIn() {
-        return isLogIn;
+    public boolean isLogInAsStaff() {
+        return isLogInAsStaff;
     }
 
-    public void setLogIn(boolean logIn) {
-        isLogIn = true;
+    public void setLogInAsStaff(boolean logInAsStaff) {
+        isLogInAsStaff = true;
     }
 
 
@@ -76,6 +80,7 @@ public class DeliveryStaff {
     }
 
     public void logisticsToDeliver(Orders orders,  String staffName) {
+//        toDeliver.add(null);
         this.toDeliver.add(orders);
         this.setOrderName(orders);
         this.setStaffName(staffName);
