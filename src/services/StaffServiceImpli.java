@@ -3,15 +3,16 @@ package services;
 import data.models.OrderStatus;
 import data.models.Orders;
 import data.repositories.DeliveryStaffImpli;
+import data.repositories.LogiStaffImpli;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StaffServiceImpli implements DeliveryStaffService{
-boolean aBoolean = false;
-//    DeliveryStaff deliveryStaff1 = new DeliveryStaff();
-DeliveryStaffImpli deliveryStaff = new DeliveryStaffImpli();
-
+    boolean aBoolean = false;
+    //    DeliveryStaff deliveryStaff1 = new DeliveryStaff();
+    DeliveryStaffImpli deliveryStaff = new DeliveryStaffImpli();
+//    LogisticsServiceImpli logisticsServiceImpli = new LogisticsServiceImpli();
 
     @Override
     public void loginAsDeliveryStaff(String name, String pin) {
@@ -32,7 +33,7 @@ DeliveryStaffImpli deliveryStaff = new DeliveryStaffImpli();
     public List<String> getListOfOrders() {
         List<String> listOrder  = new ArrayList<>();
         for (int i = 0; i <= deliveryStaff.findAll().size(); i ++) {
-           listOrder.add(deliveryStaff.findAll().get(i).getOrderName());
+            listOrder.add(deliveryStaff.findAll().get(i).getOrderName());
         }
         return listOrder;
     }
@@ -84,3 +85,6 @@ DeliveryStaffImpli deliveryStaff = new DeliveryStaffImpli();
         aBoolean = false;
     }
 }
+
+
+

@@ -1,14 +1,16 @@
 package services;
 
 import data.models.Orders;
+import data.repositories.DeliveryStaffImpli;
 import data.repositories.LogiStaffImpli;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LogisticsServiceImpli implements LogisticsCoService{
     StaffServiceImpli s = new StaffServiceImpli();
-    LogiStaffImpli staffImpli = new LogiStaffImpli();
+   public LogiStaffImpli staffImpli = new LogiStaffImpli();
     boolean aBoolean;
     @Override
     public void joinDeliveryStaffs(String name) {
@@ -16,9 +18,9 @@ public class LogisticsServiceImpli implements LogisticsCoService{
     }
 
     @Override
-    public void assignStaffForDelivery() {
+    public DeliveryStaffImpli assignStaffForDelivery() {
         if (aBoolean){
-            staffImpli.assignStaffForDelivery();
+            return staffImpli.assignStaffForDelivery();
         }else throw new RuntimeException("You are not a Logistic Staff");
 
     }
@@ -45,9 +47,9 @@ public class LogisticsServiceImpli implements LogisticsCoService{
     }
 
     @Override
-    public String getAllStaffAvailable() {
+    public List<String> getAllStaffAvailable() {
         if (aBoolean){
-         return staffImpli.getAllStaff().toString();
+         return staffImpli.getAllStaff();
         }else throw new RuntimeException("You are not a Logistic Staff");
 
     }

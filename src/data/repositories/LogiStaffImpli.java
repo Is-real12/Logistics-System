@@ -64,7 +64,7 @@ public class LogiStaffImpli implements LogiStaffRepo {
     }
 
     @Override
-    public void assignStaffForDelivery() {
+    public DeliveryStaffImpli assignStaffForDelivery() {
         List<Orders> acceptedOrders = logisticsStaffCo.getAcceptedOrder();
         List<String> staff = logisticsStaffCo.getDeliveryStaff();
         int OrderNum = random.nextInt(0, acceptedOrders.size());
@@ -72,17 +72,19 @@ public class LogiStaffImpli implements LogiStaffRepo {
 
         if (!acceptedOrders.isEmpty() && !staff.isEmpty()) {
             logisticsStaffCo.setStaffAssignedForDelivery(staff.get(staffNum));
-            DeliveryStaff deliveryStaff1 = new DeliveryStaff();
-            DeliveryStaffImpli deliveryStaffImpli = new DeliveryStaffImpli();
-            randStaff = deliveryStaffImpli;
-            deliveryStaff1.setStaffName(staff.get(staffNum));
-            deliveryStaffImpli.logisticsToDeliver(acceptedOrders.get(OrderNum), staff.get(staffNum));
-            deliveryStaff1.setExpectedTime(logisticsStaffCo.getLocalTime());
+            DeliveryStaffImpli deliveryStaff1 = new DeliveryStaffImpli();
+//            DeliveryStaffImpli deliveryStaffImpli = new DeliveryStaffImpli();
+//            DeliveryStaffImpli deliveryStaff2 = deliveryStaff1;
+            randStaff = deliveryStaff1;
+            deliveryStaff1.deliveryStaff.setStaffName(staff.get(staffNum));
+            deliveryStaff1.logisticsToDeliver(acceptedOrders.get(OrderNum), staff.get(staffNum));
+            deliveryStaff1.deliveryStaff.setExpectedTime(logisticsStaffCo.getLocalTime());
             logisticsStaffCo.getAcceptedOrder().remove(logisticsStaffCo.getAcceptedOrder().get(OrderNum));
-
+            return deliveryStaff1;
         } else {
             throw new RuntimeException("There are no available staffs or order");
         }
+
     }
     public List<Orders> allAcceptedOrder(){
       return logisticsStaffCo.getAcceptedOrder();

@@ -10,7 +10,7 @@ public interface LogiStaffRepo {
     void acceptOrder(Orders ordersName);
     void rejectOrder(Orders orders);
     void aceptOrdrDetermination(Orders orders);
-    void assignStaffForDelivery();
+    DeliveryStaffImpli assignStaffForDelivery();
     List<String> getStaffAssignedForDelivery();
     boolean checkIfAssignedByName(String name);
     List<String> getAllStaff();
